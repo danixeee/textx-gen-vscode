@@ -1,0 +1,1 @@
+recursive-include textx_vscode_gen textx_vscode_gen/template *

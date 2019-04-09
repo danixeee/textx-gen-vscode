@@ -1,0 +1,28 @@
+// syntax.template is hardcoded for this grammar
+Workflow:
+
+  'workflow' name=ID (desc=STRING)?
+  'init' init=[Task]
+
+  tasks *= Task
+
+  actions *= Action
+
+;
+
+Task:
+  'task' name=ID '{'
+    (('entry' entry=[Action])|
+    ('leave' leave=[Action])|
+    ('next' next+=[Task][',']))*
+  '}'
+;
+
+Action:
+  'action' name=ID
+;
+
+Comment:
+  /\/\/.*$/
+;
+

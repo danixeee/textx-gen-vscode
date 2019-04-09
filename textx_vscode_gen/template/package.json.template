@@ -1,0 +1,37 @@
+{
+  "name": "{{lang.name}}",
+  "description": "{{lang.description}}",
+  "version": "{{lang.version}}",
+  "publisher": "{{lang.publisher}}",
+  "repository": "{{lang.repository}}",
+  "engines": {
+    "vscode": "^1.32.3"
+  },
+  "activationEvents": [
+    "onLanguage:{{lang.id}}"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "{{lang.id}}",
+        "extensions": [
+          "wf"
+        ]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "{{lang.id}}",
+        "scopeName": "source.{{lang.id}}",
+        "path": "syntax.json"
+      }
+    ]
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "devDependencies": {
+    "vscode": "^1.1.33"
+  }
+}
