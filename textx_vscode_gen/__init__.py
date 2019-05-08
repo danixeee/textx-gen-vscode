@@ -49,4 +49,5 @@ def vscode_gen(lang_desc, model, output_path=getcwd(), overwrite=True, debug=Fal
     # TODO: Do not ignore `overwrite` and `debug` fields...
     # TODO: Allow passing --novsix argument to get zip with extension files
     # TODO: Think - maybe it makes more sense to generate extension for registered language # noqa
+    # TODO: --intall argument to install vsix
     generate_vscode_extension(lang_desc, model, output_path, True)
