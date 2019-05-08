@@ -8,22 +8,22 @@
     "vscode": "^1.32.3"
   },
   "activationEvents": [
-    "onLanguage:{{lang.id}}"
+    "onLanguage:{{lang.name|lower}}"
   ],
   "main": "./extension.js",
   "contributes": {
     "languages": [
       {
-        "id": "{{lang.id}}",
+        "id": "{{lang.name|lower}}",
         "extensions": [
-          "wf"
+          "{{lang.lang_file_ext}}"
         ]
       }
     ],
     "grammars": [
       {
-        "language": "{{lang.id}}",
-        "scopeName": "source.{{lang.id}}",
+        "language": "{{lang.name|lower}}",
+        "scopeName": "source.{{lang.name|lower}}",
         "path": "syntax.json"
       }
     ]

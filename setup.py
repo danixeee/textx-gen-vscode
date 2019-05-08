@@ -33,10 +33,10 @@ setup(
     license=LICENSE,
     packages=packages,
     include_package_data=True,
-    install_requires=["jinja2", "textx"],
+    install_requires=["jinja2", "textx", "textx-gen-coloring"],
     entry_points={
         'textx_generators': [
-            'gen_vscode = textx_vscode_gen:vscode_generator'
+            'vscode_gen = textx_vscode_gen:vscode_gen'
         ]
     },
     classifiers=[
