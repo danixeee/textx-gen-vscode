@@ -5,8 +5,8 @@ from functools import partial
 from os.path import abspath, dirname, join, relpath
 
 import jinja2
-
 from textx import generator_for_language_target, metamodel_from_file
+
 from textx_gen_coloring import TEXTMATE_LANG_TARGET
 
 this_folder = dirname(__file__)
@@ -36,9 +36,8 @@ def _copy(lang, src, dest):
 
 
 def generate_vscode_extension(lang_desc, model, output_path,
-                              overwrite=False, make_vsix=False):
+                              overwrite=False, to_vsix=False):
     with tempfile.TemporaryDirectory() as tmpdirname:
-        tmpdirname = '/Users/daniel/code/textX/textx-gen-vscode/testdir'
         tmp = join(tmpdirname, 'tmp')
         shutil.copytree(template_path, tmp,
                         copy_function=partial(_copy, lang_desc))
@@ -46,10 +45,9 @@ def generate_vscode_extension(lang_desc, model, output_path,
             'lang-name': lang_desc.name
         })
 
-        archive_name = '{}-{}'.format(lang_desc.name, lang_desc.version)
-        archive_dest = abspath(join(output_path, archive_name))
+        archive_dest = abspath(join(output_path, lang_desc.name))
 
-        if make_vsix:
+        if to_vsix:
             archive_dest += '.vsix'
             subprocess.run(['vsce', 'package', '-o', archive_dest], cwd=tmp)
         else:  # zip folder
