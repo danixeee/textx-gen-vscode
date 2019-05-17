@@ -1,5 +1,4 @@
 from functools import wraps
-from os import getcwd
 
 from textx import generator as _generator
 
@@ -7,7 +6,8 @@ from .generator import generate_vscode_extension
 
 
 class LanguageDesc:
-    def __init__(self, name, lang_file_ext, publisher=None, version=None, repo=None, desc=None):  # noqa
+    def __init__(self, name, lang_file_ext, publisher=None,
+                 version=None, repo=None, desc=None):
         self.name = name
         self.lang_file_ext = lang_file_ext
         self.publisher = publisher or 'missing-publisher'
@@ -30,6 +30,8 @@ def generator(language, target):
             if not lang_file_ext:
                 raise Exception('Language file extension is required (--file-ext wf).')  # noqa
 
+            make_vsix = bool(kwargs.get('vsix'))
+
             lang_publisher = kwargs.get('publisher')
             lang_version = kwargs.get('version')
             lang_repo = kwargs.get('repo')
@@ -38,16 +40,16 @@ def generator(language, target):
             lang_desc = LanguageDesc(lang_name, lang_file_ext, lang_publisher,
                                      lang_version, lang_repo, lang_desc)
 
-            f(lang_desc, *args[1:])
+            f(lang_desc, *args[1:], make_vsix)
         return wrapper
     return decorator
 
 
 @generator('textX', 'vscode')
-def vscode_gen(lang_desc, model, output_path=getcwd(), overwrite=True, debug=False):  # noqa
+def vscode_gen(lang_desc, model, output_path=None,
+               overwrite=True, debug=False, make_vsix=False):
     """Generating VS Code extension from textX grammars"""
     # TODO: Do not ignore `overwrite` and `debug` fields...
     # TODO: Allow passing --novsix argument to get zip with extension files
-    # TODO: Think - maybe it makes more sense to generate extension for registered language # noqa
     # TODO: --intall argument to install vsix
-    generate_vscode_extension(lang_desc, model, output_path, True)
+    generate_vscode_extension(lang_desc, model, output_path, True, make_vsix)

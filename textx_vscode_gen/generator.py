@@ -2,11 +2,11 @@ import shutil
 import subprocess
 import tempfile
 from functools import partial
-from os.path import dirname, join, relpath
+from os.path import abspath, dirname, join, relpath
 
 import jinja2
-from textx import generator_for_language_target, metamodel_from_file
 
+from textx import generator_for_language_target, metamodel_from_file
 from textx_gen_coloring import TEXTMATE_LANG_TARGET
 
 this_folder = dirname(__file__)
@@ -35,8 +35,10 @@ def _copy(lang, src, dest):
         return shutil.copy2(src, dest)
 
 
-def generate_vscode_extension(lang_desc, model, output_path, overwrite):
+def generate_vscode_extension(lang_desc, model, output_path,
+                              overwrite=False, make_vsix=False):
     with tempfile.TemporaryDirectory() as tmpdirname:
+        tmpdirname = '/Users/daniel/code/textX/textx-gen-vscode/testdir'
         tmp = join(tmpdirname, 'tmp')
         shutil.copytree(template_path, tmp,
                         copy_function=partial(_copy, lang_desc))
@@ -44,8 +46,11 @@ def generate_vscode_extension(lang_desc, model, output_path, overwrite):
             'lang-name': lang_desc.name
         })
 
-        file_name = '{}-{}.vsix'.format(lang_desc.name, lang_desc.version)
-        subprocess.run(['vsce', 'package'], cwd=tmp)
-        vsix = join(tmpdirname, 'tmp', file_name)
-        vsix_dest = join(output_path, file_name)
-        shutil.copyfile(vsix, vsix_dest)
+        archive_name = '{}-{}'.format(lang_desc.name, lang_desc.version)
+        archive_dest = abspath(join(output_path, archive_name))
+
+        if make_vsix:
+            archive_dest += '.vsix'
+            subprocess.run(['vsce', 'package', '-o', archive_dest], cwd=tmp)
+        else:  # zip folder
+            shutil.make_archive(archive_dest, 'zip', tmp)

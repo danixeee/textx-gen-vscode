@@ -3,7 +3,15 @@
 Run:
 
 ```bash
-textx generate example/workflow.tx --target=vscode
+textx generate example/workflow.tx -o . --target=vscode --lang-name Workflow --file-ext wf
+```
+
+to create a `zip` archive in cwd.
+
+Run:
+
+```bash
+textx generate example/workflow.tx -o . --target=vscode --lang-name Workflow --file-ext wf --vsix True
 ```
 
 to create a `vsix` file in cwd.
