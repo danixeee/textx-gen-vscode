@@ -5,8 +5,8 @@ from functools import partial
 from os.path import abspath, dirname, join, relpath
 
 import jinja2
-from textx import generator_for_language_target, metamodel_from_file
 
+from textx import generator_for_language_target, metamodel_from_file
 from textx_gen_coloring import TEXTMATE_LANG_TARGET
 
 this_folder = dirname(__file__)

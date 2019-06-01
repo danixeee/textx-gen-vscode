@@ -10,7 +10,7 @@ class LanguageDesc:
                  version=None, repo=None, desc=None):
         self.name = name.lower()
         self.lang_file_ext = file_pattern.split('.')[-1]
-        self.publisher = publisher or 'missing-publisher'
+        self.publisher = publisher or 'textX'
         self.version = version or '0.1.0'
         self.repository = repo or 'Missing repository URL.'
         self.description = desc or self.name

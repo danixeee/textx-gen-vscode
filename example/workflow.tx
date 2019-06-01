@@ -1,4 +1,3 @@
-// syntax.template is hardcoded for this grammar
 Workflow:
 
   'workflow' name=ID (desc=STRING)?
