@@ -1,5 +1,5 @@
 {
-  "name": "{{project.name|lower}}",
+  "name": "{{project.name.replace('_', '-')|lower}}",
   "description": "{{project.description}}",
   "version": "{{project.version}}",
   "publisher": "{{project.publisher}}",

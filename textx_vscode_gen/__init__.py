@@ -11,7 +11,7 @@ class TextXProject:
     def __init__(
         self, name, publisher=None, version=None, repo=None, desc=None
     ):
-        self.name = name.replace('_', '-')
+        self.name = name
         self.publisher = publisher or 'textX'
         self.version = version or '0.1.0'
         self.repository = repo or 'https://github.com/textX/textX-LS'
