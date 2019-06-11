@@ -1,3 +1,4 @@
+import os
 import shutil
 import subprocess
 import tempfile
@@ -5,8 +6,8 @@ from functools import partial
 from os.path import abspath, dirname, join, relpath
 
 import jinja2
-
 from textx import generator_for_language_target, metamodel_from_file
+
 from textx_gen_coloring import TEXTMATE_LANG_TARGET
 
 this_folder = dirname(__file__)
@@ -22,30 +23,38 @@ jinja_env = jinja2.Environment(
 textmate_gen = generator_for_language_target(*TEXTMATE_LANG_TARGET)
 
 
-def _copy(lang, src, dest):
+def _copy(project, src, dest):
     """Populates jinja template."""
     if src.endswith('template'):
         template_rel_path = relpath(src, template_path)
         template = jinja_env.get_template(template_rel_path)
         dest = dest.replace('.template', '')
         with open(dest, 'w') as f:
-            f.write(template.render(lang=lang))
+            f.write(template.render(project=project))
         return dest
     else:
         return shutil.copy2(src, dest)
 
 
-def generate_vscode_extension(lang_desc, model, output_path,
+def generate_vscode_extension(project, _model, output_path,
                               overwrite=False, to_vsix=False):
     with tempfile.TemporaryDirectory() as tmpdirname:
         tmp = join(tmpdirname, 'tmp')
-        shutil.copytree(template_path, tmp,
-                        copy_function=partial(_copy, lang_desc))
-        textmate_gen(None, model, join(tmp, 'syntax.json'), **{
-            'lang-name': lang_desc.name
-        })
 
-        archive_dest = abspath(join(output_path, lang_desc.name))
+        shutil.copytree(template_path, tmp,
+                        copy_function=partial(_copy, project))
+
+        # Generate coloring
+        SYNTAXES_PATH = join(tmp, 'syntaxes')
+        os.mkdir(SYNTAXES_PATH)
+        for lang in project.languages:
+            lang_syntax_path = join(SYNTAXES_PATH,
+                                    '{}.json'.format(lang.name.lower()))
+            textmate_gen(None, lang.metamodel, lang_syntax_path, **{
+                'lang-name': lang.name
+            })
+
+        archive_dest = abspath(join(output_path, project.name))
 
         if to_vsix:
             archive_dest += '.vsix'

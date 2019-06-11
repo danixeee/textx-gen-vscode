@@ -1,31 +1,40 @@
 {
-  "name": "{{lang.name}}",
-  "description": "{{lang.description}}",
-  "version": "{{lang.version}}",
-  "publisher": "{{lang.publisher}}",
-  "repository": "{{lang.repository}}",
+  "name": "{{project.name|lower}}",
+  "description": "{{project.description}}",
+  "version": "{{project.version}}",
+  "publisher": "{{project.publisher}}",
+  "repository": "{{project.repository}}",
   "engines": {
     "vscode": "^1.32.3"
   },
   "activationEvents": [
-    "onLanguage:{{lang.name|lower}}"
+	{% for lang in project.languages %}
+		"onLanguage:{{lang.name|lower}}"
+		{%- if loop.index != project.languages|length %},{% endif %}
+    {% endfor %}
   ],
   "main": "./extension.js",
   "contributes": {
     "languages": [
-      {
+		{% for lang in project.languages %}
+			{
         "id": "{{lang.name|lower}}",
         "extensions": [
-          "{{lang.lang_file_ext}}"
+          "{{lang.pattern.split('.')[-1]}}"
         ]
       }
+		{%- if loop.index != project.languages|length -%},{%- endif %}
+  	{% endfor %}
     ],
     "grammars": [
-      {
+		{% for lang in project.languages %}
+			{
         "language": "{{lang.name|lower}}",
         "scopeName": "source.{{lang.name|lower}}",
-        "path": "syntax.json"
+        "path": "syntaxes/{{lang.name|lower}}.json"
       }
+		{%- if loop.index != project.languages|length -%},{%- endif %}
+  	{% endfor %}
     ]
   },
   "scripts": {
