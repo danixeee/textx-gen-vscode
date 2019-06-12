@@ -48,10 +48,11 @@ def generate_vscode_extension(project, _model, output_path,
         SYNTAXES_PATH = join(tmp, 'syntaxes')
         os.mkdir(SYNTAXES_PATH)
         for lang in project.languages:
+            lang_name = lang.name.lower()
             lang_syntax_path = join(SYNTAXES_PATH,
-                                    '{}.json'.format(lang.name.lower()))
+                                    '{}.json'.format(lang_name))
             textmate_gen(None, lang.metamodel, lang_syntax_path, **{
-                'lang-name': lang.name
+                'lang-name': lang_name
             })
 
         archive_dest = abspath(join(output_path, project.name))
