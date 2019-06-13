@@ -19,8 +19,14 @@ jinja_env = jinja2.Environment(
     lstrip_blocks=True,
     trim_blocks=True)
 
+_textmate_gen = None
 
-textmate_gen = generator_for_language_target(*TEXTMATE_LANG_TARGET)
+
+def textmate_gen(*args, **kwargs):
+    global _textmate_gen
+    if _textmate_gen is None:
+        _textmate_gen = generator_for_language_target(*TEXTMATE_LANG_TARGET)
+    return _textmate_gen(*args, **kwargs)
 
 
 def _copy(project, src, dest):
