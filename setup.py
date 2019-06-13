@@ -4,7 +4,7 @@ import os
 
 from setuptools import find_packages, setup
 
-PACKAGE_NAME = 'textx-vscode-gen'
+PACKAGE_NAME = 'textx-gen-vscode'
 VERSION = '0.1.0'
 AUTHOR = 'Daniel Elero'
 AUTHOR_EMAIL = 'danixeee@gmail.com'
