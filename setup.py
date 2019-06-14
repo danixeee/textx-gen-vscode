@@ -36,7 +36,7 @@ setup(
     install_requires=["click", "jinja2", "textx", "textx-gen-coloring"],
     entry_points={
         'textx_generators': [
-            'vscode_gen = textx_vscode_gen:vscode_gen'
+            'vscode_gen = textx_gen_vscode:vscode_gen'
         ]
     },
     classifiers=[
