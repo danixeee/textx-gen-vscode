@@ -65,6 +65,8 @@ def generate_vscode_extension(project, _model, output_path,
 
         if to_vsix:
             archive_dest += '.vsix'
-            subprocess.run(['vsce', 'package', '-o', archive_dest], cwd=tmp)
+            from subprocess import DEVNULL
+            subprocess.run(['vsce', 'package', '-o', archive_dest],
+                           cwd=tmp, stdout=DEVNULL, stderr=DEVNULL)
         else:  # zip folder
             shutil.make_archive(archive_dest, 'zip', tmp)
