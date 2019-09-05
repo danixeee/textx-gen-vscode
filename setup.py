@@ -1,5 +1,6 @@
 import codecs
 import os
+from platform import python_version
 
 from setuptools import find_packages, setup
 
@@ -44,7 +45,7 @@ setup(
     license=LICENSE,
     packages=packages,
     include_package_data=True,
-    install_requires=["click", "jinja2", "textx", "textx-gen-coloring"],
+    install_requires=["click", "jinja2>=2", "textx>=2", "textx-gen-coloring>=0.1"],
     entry_points={"textx_generators": ["vscode_gen = textx_gen_vscode:vscode_gen"]},
     extras_require={"ci": ci_require, "dev": dev_require, "test": tests_require},
     classifiers=[

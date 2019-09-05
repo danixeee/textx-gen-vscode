@@ -1,39 +1,39 @@
 {
-  "name": "{{project.name.replace('_', '-')|lower}}",
-  "description": "{{project.description}}",
-  "version": "{{project.version}}",
-  "publisher": "{{project.publisher}}",
-  "repository": "{{project.repository}}",
+  "name": "{{project_name.replace('_', '-')|lower}}",
+  "description": "{{description}}",
+  "version": "{{version}}",
+  "publisher": "{{publisher}}",
+  "repository": "{{repository}}",
   "engines": {
     "vscode": "^1.32.3"
   },
   "activationEvents": [
-	{% for lang in project.languages %}
+	{% for lang in languages %}
 		"onLanguage:{{lang.name|lower}}"
-		{%- if loop.index != project.languages|length %},{% endif %}
+		{%- if loop.index != languages|length %},{% endif %}
     {% endfor %}
   ],
   "main": "./extension.js",
   "contributes": {
     "languages": [
-		{% for lang in project.languages %}
+		{% for lang in languages %}
 			{
         "id": "{{lang.name|lower}}",
         "extensions": [
           "{{lang.pattern.split('.')[-1]}}"
         ]
       }
-		{%- if loop.index != project.languages|length -%},{%- endif %}
+		{%- if loop.index != languages|length -%},{%- endif %}
   	{% endfor %}
     ],
     "grammars": [
-		{% for lang in project.languages %}
+		{% for lang in languages %}
 			{
         "language": "{{lang.name|lower}}",
         "scopeName": "source.{{lang.name|lower}}",
         "path": "syntaxes/{{lang.name|lower}}.json"
       }
-		{%- if loop.index != project.languages|length -%},{%- endif %}
+		{%- if loop.index != languages|length -%},{%- endif %}
   	{% endfor %}
     ]
   },
