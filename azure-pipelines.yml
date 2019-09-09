@@ -31,7 +31,7 @@ steps:
   condition: eq(variables['python.version'], '3.6')
 
 - script: |
-    bandit -r textx_gen_vscode
+    bandit -c .bandit -r textx_gen_vscode
   displayName: 'bandit'
 
 - script: |
