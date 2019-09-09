@@ -108,8 +108,8 @@ def generate_vscode_extension(
                 generate_textmate_syntax(lang.metamodel, lang_name)
             )
 
-        if not output_path:
-            output_path = getcwd
+        if not output_path:  # pragma: no cover
+            output_path = getcwd()
         archive_dest = abspath(join(output_path, project_name))
 
         # Create installable .vsix file
