@@ -23,7 +23,7 @@ steps:
     pip install .
     pip install -r ci-requirements.txt
 
-    npm i -g vsce # Tests requirements
+    sudo npm i -g vsce # Tests requirements
   displayName: 'Install dependencies'
 
 - script: |
