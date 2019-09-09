@@ -1,7 +1,8 @@
 bandit
+black; python_version == '3.6'
 pytest
 pytest-cov
-# pytest-azurepipelines
+pytest-azurepipelines
 
 # Workflow project used for testing
 ./examples/workflow
