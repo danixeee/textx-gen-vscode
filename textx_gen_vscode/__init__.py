@@ -1,3 +1,5 @@
+import sys
+
 import click
 from textx import generator
 
@@ -20,8 +22,8 @@ def vscode_gen(
 ):
     """Generating VS Code extension for installed textX projects."""
     if not project_name:
-        click.echo('\nError: Missing option "--project_name".')
-        return
+        click.echo('\nError: Missing option: "--project_name".')
+        sys.exit(1)
 
     generate_vscode_extension(
         project_name, publisher, version, repository, description, vsix, output_path

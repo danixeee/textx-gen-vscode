@@ -1,0 +1,7 @@
+bandit
+pytest
+pytest-cov
+# pytest-azurepipelines
+
+# Workflow project used for testing
+./examples/workflow

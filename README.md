@@ -3,7 +3,7 @@
 Run:
 
 ```bash
-textx generate example/workflow.tx -o . --target=vscode --project workflow
+textx generate examples/workflow/tx_workflow/workflow.tx -o . --target=vscode --project_name workflow
 ```
 
 to create a `zip` archive in cwd.
