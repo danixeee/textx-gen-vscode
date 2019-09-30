@@ -19,7 +19,7 @@ def vscode_gen(
     repository="https://github.com/textX/textX-LS",
     description="textX",
     vsix=False,
-    no_grammars=False,  # Don't generate syntax highlighting
+    skip_keywords=False,
 ):
     """Generating VS Code extension for installed textX projects."""
     if not project_name:
@@ -34,5 +34,5 @@ def vscode_gen(
         description,
         vsix,
         output_path,
-        no_grammars,
+        skip_keywords,
     )

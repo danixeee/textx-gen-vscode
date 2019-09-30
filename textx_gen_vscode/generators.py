@@ -43,15 +43,7 @@ def _get_languages_by_project_name(project_name):
 
 
 def _copy(
-    project_name,
-    publisher,
-    version,
-    repository,
-    description,
-    languages,
-    no_grammars,
-    src,
-    dest,
+    project_name, publisher, version, repository, description, languages, src, dest
 ):
     """Populates jinja template."""
     if src.endswith("template"):
@@ -67,7 +59,6 @@ def _copy(
                     repository=repository,
                     description=description,
                     languages=languages,
-                    no_grammars=no_grammars,
                 )
             )
         return dest
@@ -83,7 +74,7 @@ def generate_vscode_extension(
     description="textX",
     vsix=False,
     output_path="",
-    no_grammars=False,
+    skip_keywords=False,
 ):
     """Generate minimal extension from template files and given information.
 
@@ -107,18 +98,18 @@ def generate_vscode_extension(
                 repository,
                 description,
                 languages,
-                no_grammars,
             ),
         )
 
-        if not no_grammars:
-            # Generate syntax highlighting
-            for lang in languages:
-                lang_name = lang.name.lower()
-                lang_syntax_path = Path(tmp) / "syntaxes" / "{}.json".format(lang_name)
-                lang_syntax_path.write_text(
-                    generate_textmate_syntax(lang.metamodel, lang_name)
+        # Generate syntax highlighting
+        for lang in languages:
+            lang_name = lang.name.lower()
+            lang_syntax_path = Path(tmp) / "syntaxes" / "{}.json".format(lang_name)
+            lang_syntax_path.write_text(
+                generate_textmate_syntax(
+                    lang.metamodel, lang_name, skip_keywords=skip_keywords
                 )
+            )
 
         if not output_path:  # pragma: no cover
             output_path = getcwd()

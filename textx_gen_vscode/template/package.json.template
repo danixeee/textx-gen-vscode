@@ -25,9 +25,8 @@
       }
 		{%- if loop.index != languages|length -%},{%- endif %}
   	{% endfor %}
-    ]
-    {%- if not no_grammars %}
-    ,"grammars": [
+    ],
+    "grammars": [
 		{% for lang in languages %}
 			{
         "language": "{{lang.name|lower}}",
@@ -37,7 +36,6 @@
 		{%- if loop.index != languages|length -%},{%- endif %}
   	{% endfor %}
     ]
-    {% endif %}
   },
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install"
