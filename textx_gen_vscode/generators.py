@@ -74,6 +74,7 @@ def generate_vscode_extension(
     description="textX",
     vsix=False,
     output_path="",
+    skip_keywords=False,
 ):
     """Generate minimal extension from template files and given information.
 
@@ -100,12 +101,14 @@ def generate_vscode_extension(
             ),
         )
 
-        # Generate coloring
+        # Generate syntax highlighting
         for lang in languages:
             lang_name = lang.name.lower()
             lang_syntax_path = Path(tmp) / "syntaxes" / "{}.json".format(lang_name)
             lang_syntax_path.write_text(
-                generate_textmate_syntax(lang.metamodel, lang_name)
+                generate_textmate_syntax(
+                    lang.metamodel, lang_name, skip_keywords=skip_keywords
+                )
             )
 
         if not output_path:  # pragma: no cover
