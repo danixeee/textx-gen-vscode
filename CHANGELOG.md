@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+### Added
+
+- Option to exclude language keywords when generating coloring file ([#1])
+
+[#1]: https://github.com/danixeee/textx-gen-vscode/pull/1
+
 ## [0.1.0] - 09/10/2019
 
 ### Added
