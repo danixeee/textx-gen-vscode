@@ -8,6 +8,7 @@ from pathlib import Path
 
 import jinja2
 from textx import language_descriptions
+
 from textx_gen_coloring.generators import generate_textmate_syntax
 
 this_folder = dirname(__file__)
@@ -75,6 +76,7 @@ def generate_vscode_extension(
     vsix=False,
     output_path="",
     skip_keywords=False,
+    vsce="vsce",
 ):
     """Generate minimal extension from template files and given information.
 
@@ -118,7 +120,7 @@ def generate_vscode_extension(
         # Create installable .vsix file
         if vsix:
             subprocess.run(
-                ["vsce", "package", "-o", "{}.vsix".format(archive_dest)],
+                [vsce, "package", "-o", "{}.vsix".format(archive_dest)],
                 cwd=tmp,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,

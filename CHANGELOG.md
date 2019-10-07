@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+### Added
+
+- Option to pass _vsce_ command path ([#3])
+
+[#3]: https://github.com/danixeee/textx-gen-vscode/pull/3
+
 ## [0.1.1] - 10/03/2019
 
 ### Added

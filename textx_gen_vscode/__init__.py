@@ -20,6 +20,7 @@ def vscode_gen(
     description="textX",
     vsix=False,
     skip_keywords=False,
+    vsce="vsce",
 ):
     """Generating VS Code extension for installed textX projects."""
     if not project_name:
@@ -35,4 +36,5 @@ def vscode_gen(
         vsix,
         output_path,
         skip_keywords,
+        vsce,
     )
