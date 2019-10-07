@@ -5,7 +5,7 @@ from platform import python_version
 from setuptools import find_packages, setup
 
 PACKAGE_NAME = "textx-gen-vscode"
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 AUTHOR = "Daniel Elero"
 AUTHOR_EMAIL = "danixeee@gmail.com"
 DESCRIPTION = "a VS Code extension generator"

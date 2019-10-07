@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+## [0.1.2] - 10/08/2019
+
 ### Added
 
 - Option to pass _vsce_ command path ([#3])
@@ -32,6 +34,7 @@ and this project adheres to [Semantic Versioning][semver].
 [keepachangelog]: https://keepachangelog.com/en/1.0.0/
 [semver]: https://semver.org/spec/v2.0.0.html
 
-[Unreleased]: https://github.com/danixeee/textx-gen-vscode/compare/v0.1.1...HEAD
-[0.1.0]: https://github.com/danixeee/textx-gen-vscode/compare/v0.1.0...v0.1.1
+[Unreleased]: https://github.com/danixeee/textx-gen-vscode/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/danixeee/textx-gen-vscode/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/danixeee/textx-gen-vscode/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/danixeee/textx-gen-vscode/compare/9578ef2b8de1254a24220b413b495439e9c1f355...v0.1.0
