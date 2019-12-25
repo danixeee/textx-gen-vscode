@@ -124,6 +124,7 @@ def generate_vscode_extension(
                 cwd=tmp,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
+                shell=True,
             )
         # Create .tar file
         else:
