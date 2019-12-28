@@ -1,3 +1,4 @@
+import platform
 import shutil
 import subprocess
 import tempfile
@@ -124,6 +125,7 @@ def generate_vscode_extension(
                 cwd=tmp,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
+                shell=platform.system() == "Windows",
             )
         # Create .tar file
         else:

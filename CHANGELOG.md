@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix `vsce` packaging on windows
+
+[#5]: https://github.com/danixeee/textx-gen-vscode/pull/5
+
 ## [0.1.2] - 10/08/2019
 
 ### Added
