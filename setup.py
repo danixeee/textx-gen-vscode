@@ -50,7 +50,7 @@ setup(
     license=LICENSE,
     packages=packages,
     include_package_data=True,
-    install_requires=["click", "jinja2>=2", "textx>=2", "textx-gen-coloring>=0.1.1"],
+    install_requires=["click", "jinja2>=2", "textx>=2", "textx-gen-coloring>=0.1.2"],
     entry_points={"textx_generators": ["vscode_gen = textx_gen_vscode:vscode_gen"]},
     extras_require={"ci": ci_require, "dev": dev_require, "test": tests_require},
     classifiers=[
