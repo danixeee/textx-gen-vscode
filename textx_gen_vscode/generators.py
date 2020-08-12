@@ -3,7 +3,7 @@ import shutil
 import subprocess
 import tempfile
 from functools import partial
-from os import getcwd
+from os import getcwd, rename
 from os.path import abspath, dirname, join, relpath
 from pathlib import Path
 
@@ -49,8 +49,8 @@ def _copy(
 ):
     """Populates jinja template."""
     if src.endswith("template"):
-        template_rel_path = relpath(src, template_path)
-        template = jinja_env.get_template(template_rel_path)
+        template_rel_path = Path(src).relative_to(template_path)
+        template = jinja_env.get_template(template_rel_path.as_posix())
         dest = dest.replace(".template", "")
         with open(dest, "w") as f:
             f.write(
@@ -77,7 +77,7 @@ def generate_vscode_extension(
     vsix=False,
     output_path="",
     skip_keywords=False,
-    vsce="vsce",
+    vsce=None,
 ):
     """Generate minimal extension from template files and given information.
 
@@ -88,6 +88,7 @@ def generate_vscode_extension(
 
     with tempfile.TemporaryDirectory() as tmpdirname:
         tmp = join(tmpdirname, "tmp")
+        extension = join(tmp, "extension")
 
         # Copy files from ./template directory while populating *.template
         shutil.copytree(
@@ -107,7 +108,7 @@ def generate_vscode_extension(
         # Generate syntax highlighting
         for lang in languages:
             lang_name = lang.name.lower()
-            lang_syntax_path = Path(tmp) / "syntaxes" / "{}.json".format(lang_name)
+            lang_syntax_path = Path(extension) / "syntaxes" / "{}.json".format(lang_name)
             lang_syntax_path.write_text(
                 generate_textmate_syntax(
                     lang.metamodel, lang_name, skip_keywords=skip_keywords
@@ -120,13 +121,17 @@ def generate_vscode_extension(
 
         # Create installable .vsix file
         if vsix:
-            subprocess.run(
-                [vsce, "package", "-o", "{}.vsix".format(archive_dest)],
-                cwd=tmp,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                shell=platform.system() == "Windows",
-            )
+            if vsce:
+                subprocess.run(
+                    [vsce, "package", "-o", "{}.vsix".format(archive_dest)],
+                    cwd=extension,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    shell=platform.system() == "Windows",
+                )
+            else:
+                shutil.make_archive(archive_dest, "zip", tmp)
+                rename("{}.zip".format(archive_dest), "{}.vsix".format(archive_dest))
         # Create .tar file
         else:
-            shutil.make_archive(archive_dest, "gztar", tmp)
+            shutil.make_archive(archive_dest, "gztar", extension)

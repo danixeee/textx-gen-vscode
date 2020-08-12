@@ -46,6 +46,20 @@ def test_vscode_gen_cli_vsix(workflow_grammar_path, tmpdir):
     assert (Path(str(tmpdir)) / "{}.vsix".format(project_name)).exists()
 
 
+def test_vscode_gen_cli_vsix_vsce(workflow_grammar_path, tmpdir):
+    project_name = "tx-workflow"
+    _, err = _vscode_gen_cli(
+        workflow_grammar_path,
+        output_path=str(tmpdir),
+        project__name=project_name,
+        vsix="True",
+        vsce="vsce",
+    )
+
+    assert err is None
+    assert (Path(str(tmpdir)) / "{}.vsix".format(project_name)).exists()
+
+
 def test_vscode_gen_cli_bad_args(workflow_grammar_path):
     output, err = _vscode_gen_cli(workflow_grammar_path)
     assert 'Error: Missing option: "--project_name".' in output
